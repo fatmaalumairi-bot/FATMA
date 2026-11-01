@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مغامرة علي في غابة الضعف</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+        }
+
+        .forest-scene {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            overflow: hidden;
+            padding: 30px 15px;
+        }
+
+        /* صورة الغابة */
+        .forest-background {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 0;
+        }
+
+        /* مربع الترحيب */
+        .scene-message {
+            position: relative;
+            z-index: 2;
+            width: min(85%, 480px);
+            padding: 16px 20px;
+            margin: 0 auto;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.88);
+            border: 2px solid #e7c76d;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .scene-message h1 {
+            color: #245638;
+            font-size: clamp(23px, 4vw, 30px);
+            margin: 0 0 8px;
+            font-weight: 800;
+        }
+
+        .scene-message p {
+            color: #485c42;
+            font-size: 17px;
+            margin: 0 0 13px;
+            line-height: 1.6;
+        }
+
+        /* زر بدء المغامرة */
+        .start-challenge {
+            display: inline-block;
+            padding: 10px 28px;
+            background: linear-gradient(135deg, #e7bd55, #c9952d);
+            color: #263c22;
+            text-decoration: none;
+            font-size: 18px;
+            font-weight: 800;
+            border-radius: 35px;
+            border: 2px solid #fff0bd;
+            box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+            transition: 0.3s;
+        }
+
+        .start-challenge:hover {
+            transform: translateY(-3px);
+            background: #f2d17e;
+        }
+
+        @media (max-width: 600px) {
+            .forest-scene {
+                padding-top: 20px;
+            }
+
+            .scene-message {
+                width: 95%;
+                padding: 14px;
+            }
+
+            .scene-message p {
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="forest-scene">
+
+        <img
+            src="./forest-scene.png"
+            alt="الغابة السحرية"
+            class="forest-background"
+        >
+
+        <div class="scene-message">
+
+            <h1>مرحبًا بكِ في غابة الضعف! 🌳</h1>
+
+            <p>
+                تنتظركِ مغامرة مليئة بالألغاز والتحديات الممتعة.
+                هل أنتِ مستعدة لاكتشاف أسرار الأعداد؟
+            </p>
+
+            <a href="challenge1.html" class="start-challenge">
+                ابدئي المغامرة ✨
+            </a>
+
+        </div>
+
+    </div>
+
+    <script src="sounds.js"></script>
+
+</body>
+</html>

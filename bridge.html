@@ -1,0 +1,431 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الجسر الخشبي | مغامرة علي</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
+
+* {
+    box-sizing: border-box;
+    font-family: 'Tajawal', sans-serif;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    overflow-x: hidden;
+    color: white;
+    background: #205238;
+}
+
+.forest-background {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background-image: url('./bridge-scene.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.forest-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: linear-gradient(
+        180deg,
+        rgba(12, 43, 24, 0.35),
+        rgba(15, 55, 30, 0.72)
+    );
+}
+
+.game-container {
+    width: min(92%, 720px);
+    margin: auto;
+    padding: 25px 0 45px;
+    text-align: center;
+}
+
+.game-title {
+    margin: 0 0 8px;
+    font-size: clamp(25px, 5vw, 38px);
+    font-weight: 800;
+    color: #fff7d2;
+    text-shadow: 0 4px 0 #76531d, 0 7px 12px #0008;
+}
+
+.game-subtitle {
+    margin: 0 0 22px;
+    font-size: 18px;
+    color: #f1ffe7;
+    text-shadow: 0 2px 5px #000;
+}
+
+/* شريط التقدم */
+.progress-card {
+    width: min(100%, 480px);
+    margin: 0 auto 25px;
+    padding: 13px 18px;
+    background: linear-gradient(180deg, #fff9dc, #e8d9a7);
+    border: 3px solid #c9a34e;
+    border-radius: 20px;
+    box-shadow: 0 7px 0 #92712d, 0 12px 18px #0005;
+    color: #385c32;
+}
+
+.progress-text {
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    font-weight: 800;
+    margin-bottom: 9px;
+}
+
+.progress-track {
+    height: 13px;
+    border-radius: 20px;
+    background: #c6c6a0;
+    overflow: hidden;
+}
+
+.progress-fill {
+    width: 50%;
+    height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(90deg, #82c94d, #43a047);
+}
+
+/* بطاقة التحدي */
+.question-card {
+    width: min(100%, 560px);
+    margin: 0 auto 25px;
+    padding: 28px 20px;
+    border-radius: 30px;
+    background: linear-gradient(145deg, #fffdf2, #f1e7c7);
+    border: 4px solid #f4d16d;
+    box-shadow:
+        0 10px 0 #b68b34,
+        0 17px 0 #7c612a,
+        0 24px 30px #0005;
+    color: #34552d;
+    transform: perspective(700px) rotateX(2deg);
+}
+
+.question-label {
+    display: inline-block;
+    padding: 7px 18px;
+    margin-bottom: 15px;
+    border-radius: 30px;
+    color: white;
+    background: linear-gradient(180deg, #f4a33a, #d9781f);
+    box-shadow: 0 4px 0 #a65416;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.question-card h2 {
+    margin: 0;
+    font-size: clamp(27px, 5vw, 40px);
+    font-weight: 800;
+    line-height: 1.5;
+}
+
+.number {
+    display: inline-block;
+    color: #e58a25;
+    font-size: 1.35em;
+    text-shadow: 0 3px 0 #a95e17, 0 6px 0 #794313;
+}
+
+.question-hint {
+    margin: 12px 0 0;
+    color: #718264;
+    font-size: 16px;
+}
+
+/* خيارات الإجابة */
+.answers-title {
+    margin: 30px 0 18px;
+    color: #fff7d2;
+    font-size: 21px;
+    font-weight: 800;
+    text-shadow: 0 3px 5px #0008;
+}
+
+.answers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    width: min(100%, 560px);
+    margin: 0 auto;
+}
+
+.answer-button {
+    position: relative;
+    min-height: 110px;
+    border: 3px solid #ffffffa6;
+    border-radius: 25px;
+    background: linear-gradient(145deg, #fffef3, #e8e0bd);
+    color: #315a32;
+    font-size: 42px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow:
+        0 8px 0 #b8a16a,
+        0 13px 18px #0005,
+        inset 0 4px 5px #ffffffcc;
+    transition: 0.15s;
+}
+
+.answer-button::before {
+    content: "";
+    position: absolute;
+    top: 9px;
+    left: 13px;
+    width: 35%;
+    height: 12px;
+    border-radius: 20px;
+    background: #ffffff8c;
+}
+
+.answer-button:hover {
+    transform: translateY(-5px);
+}
+
+.answer-button:active {
+    transform: translateY(5px);
+}
+
+.answer-button:disabled {
+    cursor: default;
+    opacity: 0.85;
+}
+
+.answer-button.correct {
+    background: linear-gradient(145deg, #baf58e, #6fc84e);
+    color: #20552a;
+    border-color: #e2ffd0;
+    box-shadow: 0 8px 0 #39883c, 0 13px 18px #0005;
+}
+
+.answer-button.wrong {
+    background: linear-gradient(145deg, #ffb4a6, #ed7166);
+    color: #7d2720;
+    border-color: #ffe0d8;
+    box-shadow: 0 8px 0 #a84338, 0 13px 18px #0005;
+}
+
+/* رسائل الإجابة */
+.feedback {
+    display: none;
+    width: min(100%, 560px);
+    margin: 28px auto 0;
+    padding: 18px;
+    border-radius: 22px;
+    font-size: 21px;
+    font-weight: 800;
+    line-height: 1.7;
+    box-shadow: 0 7px 0 #0003;
+}
+
+.feedback.show {
+    display: block;
+    animation: popIn 0.35s ease-out;
+}
+
+.feedback.success {
+    background: linear-gradient(145deg, #e1ffd1, #a8e58b);
+    color: #245b2c;
+    border: 3px solid #d5ffc4;
+}
+
+.feedback.try-again {
+    background: linear-gradient(145deg, #fff2ce, #f7d68b);
+    color: #78521c;
+    border: 3px solid #fff0bd;
+}
+
+/* زر المتابعة */
+.next-button {
+    display: none;
+    margin: 22px auto 0;
+    padding: 13px 30px;
+    border: 3px solid #fff0bd;
+    border-radius: 35px;
+    background: linear-gradient(145deg, #f5cf62, #d89b2c);
+    color: #493514;
+    font-size: 20px;
+    font-weight: 800;
+    text-decoration: none;
+    box-shadow: 0 7px 0 #9b6b20, 0 12px 18px #0005;
+}
+
+.next-button.show {
+    display: inline-block;
+}
+
+.next-button:hover {
+    transform: translateY(-4px);
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 30px;
+    color: #f4ffe9;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    text-shadow: 0 2px 4px #000;
+}
+
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.85);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 500px) {
+    .game-container {
+        padding-top: 22px;
+    }
+
+    .answers {
+        gap: 12px;
+    }
+
+    .answer-button {
+        min-height: 90px;
+        font-size: 35px;
+        border-radius: 20px;
+    }
+
+    .question-card {
+        padding: 24px 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="forest-background"></div>
+<div class="forest-overlay"></div>
+
+<main class="game-container">
+
+    <h1 class="game-title">🌉 مغامرة علي والجسر الخشبي</h1>
+    <p class="game-subtitle">ساعدي علي على عبور الجسر!</p>
+
+    <section class="progress-card">
+        <div class="progress-text">
+            <span>المغامرة الثانية</span>
+            <span>السؤال 2 من 4</span>
+        </div>
+
+        <div class="progress-track">
+            <div class="progress-fill"></div>
+        </div>
+    </section>
+
+    <section class="question-card">
+        <div class="question-label">🌟 تحدي عبور الجسر</div>
+
+        <h2>
+            ما ضعف العدد
+            <span class="number">4</span>
+            ؟
+        </h2>
+
+        <p class="question-hint">
+            ساعدي علي! اجمعي العدد مع نفسه ليعبر الجسر بأمان.
+        </p>
+    </section>
+
+    <h3 class="answers-title">اختاري الإجابة الصحيحة</h3>
+
+    <section class="answers">
+        <button class="answer-button" data-answer="6">6</button>
+        <button class="answer-button" data-answer="8">8</button>
+        <button class="answer-button" data-answer="10">10</button>
+    </section>
+
+    <div id="feedback" class="feedback" aria-live="polite"></div>
+
+    <!-- تم تعديل الرابط إلى التحدي الثالث -->
+    <a href="challenge3.html" id="nextButton" class="next-button">
+        تابعي إلى التحدي الثالث ➜
+    </a>
+
+    <a href="challenge1.html" class="back-link">
+        ↩ العودة إلى التحدي الأول
+    </a>
+
+</main>
+
+<script src="sounds.js"></script>
+
+<script>
+const answerButtons = document.querySelectorAll(".answer-button");
+const feedback = document.getElementById("feedback");
+const nextButton = document.getElementById("nextButton");
+
+let answeredCorrectly = false;
+
+answerButtons.forEach(button => {
+    button.addEventListener("click", () => {
+
+        if (answeredCorrectly) return;
+
+        const answer = Number(button.dataset.answer);
+
+        if (answer === 8) {
+            answeredCorrectly = true;
+
+            button.classList.add("correct");
+
+            answerButtons.forEach(item => {
+                item.disabled = true;
+            });
+
+            feedback.className = "feedback show success";
+            feedback.innerHTML =
+                "🎉 أحسنتِ! لقد عبر علي الجسر!<br>" +
+                "ضعف العدد 4 هو 8، لأن 4 + 4 = 8.";
+
+            nextButton.classList.add("show");
+
+            if (typeof successSound === "function") {
+                successSound();
+            }
+
+        } else {
+            button.classList.add("wrong");
+
+            feedback.className = "feedback show try-again";
+            feedback.innerHTML =
+                "🌼 محاولة جميلة!<br>" +
+                "تذكّري أن الضعف يعني جمع العدد إلى نفسه. حاولي مرة أخرى!";
+
+            if (typeof wrongSound === "function") {
+                wrongSound();
+            }
+
+            setTimeout(() => {
+                button.classList.remove("wrong");
+            }, 800);
+        }
+    });
+});
+</script>
+
+</body>
+</html>

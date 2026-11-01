@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مغامرة علي في غابة الضعف</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #123b2b, #071b13);
+            font-family: Tahoma, Arial, sans-serif;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #ffe5a3;
+            font-size: clamp(24px, 4vw, 38px);
+            margin: 0 0 22px;
+            text-shadow: 2px 3px 5px #0008;
+        }
+
+        .cover-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border: 5px solid #e6c777;
+            border-radius: 25px;
+            box-shadow: 0 10px 35px #0008;
+        }
+
+        .cover-container img {
+            width: 100%;
+            display: block;
+            height: auto;
+        }
+
+        .image-button {
+            position: absolute;
+            left: 50%;
+            bottom: 7%;
+            transform: translateX(-50%);
+            width: 30%;
+            height: 13%;
+            min-width: 130px;
+            border-radius: 50px;
+            cursor: pointer;
+            background: transparent;
+        }
+
+        .image-button:focus-visible {
+            outline: 4px solid white;
+            outline-offset: 4px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+            }
+
+            .cover-container {
+                border-width: 3px;
+                border-radius: 15px;
+            }
+
+            .image-button {
+                bottom: 6%;
+                height: 14%;
+                width: 38%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>🌳 مغامرة علي في غابة الضعف 🌳</h1>
+
+        <div class="cover-container">
+
+            <img src="./forest-cover.png" alt="مغامرة علي في الغابة">
+
+            <a
+                href="forest.html"
+                class="image-button"
+                aria-label="ابدئي المغامرة"
+                title="ابدئي المغامرة">
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+</html>

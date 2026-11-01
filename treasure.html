@@ -1,0 +1,357 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الكنز الأسطوري | مغامرة علي</title>
+
+<link rel="stylesheet" href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Tajawal", sans-serif;
+    font-weight: 700;
+    background:
+        linear-gradient(rgba(5, 20, 12, 0.35), rgba(5, 20, 12, 0.72)),
+        url("./treasure-scene.png") center / cover fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px;
+    overflow-x: hidden;
+    color: white;
+}
+
+.stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.star {
+    position: absolute;
+    color: #ffe58a;
+    font-size: 22px;
+    animation: twinkle 2s infinite alternate;
+}
+
+.star:nth-child(1) {
+    top: 10%;
+    right: 12%;
+}
+
+.star:nth-child(2) {
+    top: 22%;
+    left: 13%;
+    animation-delay: .5s;
+}
+
+.star:nth-child(3) {
+    bottom: 15%;
+    right: 18%;
+    animation-delay: 1s;
+}
+
+.star:nth-child(4) {
+    bottom: 25%;
+    left: 12%;
+    animation-delay: .7s;
+}
+
+.star:nth-child(5) {
+    top: 8%;
+    left: 45%;
+    animation-delay: 1.2s;
+}
+
+.card {
+    position: relative;
+    width: 100%;
+    max-width: 650px;
+    padding: 35px 25px;
+    text-align: center;
+    background: linear-gradient(
+        145deg,
+        rgba(15, 55, 35, .96),
+        rgba(5, 30, 20, .96)
+    );
+    border: 3px solid #e8c65d;
+    border-radius: 32px;
+    box-shadow:
+        0 0 25px rgba(255, 211, 91, .35),
+        0 20px 55px rgba(0, 0, 0, .5),
+        inset 0 0 25px rgba(255, 221, 120, .08);
+    backdrop-filter: blur(8px);
+    animation: enter 1s ease;
+}
+
+.top-label {
+    display: inline-block;
+    padding: 8px 22px;
+    background: linear-gradient(135deg, #f8df91, #c99432);
+    color: #46300c;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 800;
+    box-shadow: 0 4px 12px #0005;
+}
+
+h1 {
+    color: #ffe28a;
+    font-size: clamp(29px, 6vw, 43px);
+    font-weight: 900;
+    margin: 20px 0 8px;
+    text-shadow: 0 4px 12px #0008;
+}
+
+.subtitle {
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 1.9;
+    color: #f4f0dc;
+    margin: 10px auto;
+}
+
+.chest {
+    font-size: 105px;
+    margin: 12px 0;
+    display: inline-block;
+    filter: drop-shadow(0 0 18px #ffd85c);
+    animation: treasureGlow 2s infinite alternate;
+}
+
+.achievement-title {
+    color: #ffe28a;
+    font-size: 22px;
+    font-weight: 800;
+    margin: 18px 0 12px;
+}
+
+.achievements {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 18px 0;
+}
+
+.achievement {
+    background: rgba(255, 255, 255, .09);
+    border: 1px solid rgba(255, 220, 120, .55);
+    border-radius: 16px;
+    padding: 12px 5px;
+    box-shadow: inset 0 0 12px #fff1;
+    font-weight: 700;
+}
+
+.achievement span {
+    display: block;
+    font-size: 27px;
+    margin-bottom: 5px;
+}
+
+.achievement small {
+    color: #f8e9b8;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.message {
+    background: rgba(255, 224, 138, .1);
+    border-right: 4px solid #f2cd69;
+    border-radius: 12px;
+    padding: 14px;
+    line-height: 2;
+    font-size: 17px;
+    font-weight: 500;
+    margin: 20px 0;
+}
+
+.home-button {
+    display: inline-block;
+    text-decoration: none;
+    background: linear-gradient(135deg, #ffe99c, #e2aa39);
+    color: #392609;
+    padding: 15px 30px;
+    border-radius: 40px;
+    font-size: 19px;
+    font-weight: 800;
+    box-shadow: 0 6px 0 #95651b, 0 10px 22px #0005;
+    transition: .25s;
+}
+
+.home-button:hover {
+    transform: translateY(-5px) scale(1.04);
+    box-shadow: 0 10px 0 #95651b, 0 15px 25px #0005;
+}
+
+.footer {
+    color: #e9dba9;
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 25px;
+    line-height: 1.9;
+}
+
+@keyframes twinkle {
+    from {
+        opacity: .35;
+        transform: scale(.8) rotate(0deg);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1.3) rotate(25deg);
+    }
+}
+
+@keyframes treasureGlow {
+    from {
+        transform: translateY(0) scale(1);
+        filter: drop-shadow(0 0 8px #ffd85c);
+    }
+    to {
+        transform: translateY(-8px) scale(1.1);
+        filter: drop-shadow(0 0 28px #ffdc68);
+    }
+}
+
+@keyframes enter {
+    from {
+        opacity: 0;
+        transform: translateY(35px) scale(.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@media (max-width: 480px) {
+    .card {
+        padding: 27px 16px;
+    }
+
+    .achievements {
+        gap: 6px;
+    }
+
+    .achievement {
+        padding: 10px 3px;
+    }
+
+    .achievement span {
+        font-size: 23px;
+    }
+
+    .achievement small {
+        font-size: 11px;
+    }
+
+    .chest {
+        font-size: 85px;
+    }
+
+    .subtitle {
+        font-size: 17px;
+    }
+
+    .message {
+        font-size: 15px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="stars">
+    <span class="star">✦</span>
+    <span class="star">✧</span>
+    <span class="star">✦</span>
+    <span class="star">✧</span>
+    <span class="star">✦</span>
+</div>
+
+<main class="card">
+
+    <div class="top-label">🏆 بطل مغامرة علي 🏆</div>
+
+    <h1>يا له من إنجاز رائع!</h1>
+
+    <p class="subtitle">
+        لقد وصلت إلى نهاية المغامرة<br>
+        وأثبتَّ أنك بطل غابة الضعف!
+    </p>
+
+    <div class="chest">🎁</div>
+
+    <h2 class="achievement-title">
+        ✨ وسام البطل الذهبي ✨
+    </h2>
+
+    <div class="achievements">
+
+        <div class="achievement">
+            <span>🌳</span>
+            <small>دخول الغابة</small>
+        </div>
+
+        <div class="achievement">
+            <span>⭐</span>
+            <small>التحدي الأول</small>
+        </div>
+
+        <div class="achievement">
+            <span>💎</span>
+            <small>التحديان الثاني والثالث</small>
+        </div>
+
+        <div class="achievement">
+            <span>🏆</span>
+            <small>التحدي الرابع</small>
+        </div>
+
+    </div>
+
+    <div class="message">
+        🎉 تهانينا! لقد اجتزت جميع التحديات بنجاح.
+        <br>
+        تذكّر أن ضعف العدد هو جمع العدد مع نفسه.
+        <br>
+        أنت بطل الحساب! 🧠✨
+    </div>
+
+    <a href="index.html" class="home-button"
+       onclick="if(typeof treasureSound === 'function') treasureSound();">
+        🏡 العودة إلى بداية المغامرة
+    </a>
+
+    <div class="footer">
+        🌟 مغامرة علي في غابة الضعف 🌟
+        <br>
+        انتهت المغامرة... وبدأت مغامرات التعلم!
+    </div>
+
+</main>
+
+<script src="sounds.js"></script>
+
+<script>
+window.addEventListener("load", function () {
+    if (typeof treasureSound === "function") {
+        treasureSound();
+    }
+});
+</script>
+
+</body>
+</html>
